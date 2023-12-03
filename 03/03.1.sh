@@ -29,6 +29,6 @@ cat ./tmp | \
     sed -E 's/\.+/./g' | \
     sed -E 's/\./+/g' | \
     paste -sd+ | \
-    bc
+    ../sum_regex.sh
 
 rm ./input_shifted_2 ./input_shifted_1 ./input_shifted_0 ./tmp

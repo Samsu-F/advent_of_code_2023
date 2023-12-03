@@ -8,4 +8,4 @@ cat ./input | \
     grep -E --only-matching '^Game [0-9]+' | \
     grep -E --only-matching '[0-9]+' | \
     paste -sd+ | \
-    bc
+    ../sum_regex.sh
