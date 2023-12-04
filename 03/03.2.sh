@@ -32,6 +32,6 @@ cat ./tmp | \
     sed -E 's/G,([0-9]+),([0-9]+),G/(\1*\2)/g' | \
     { tr -d '\n'; echo ''; } | \
     sed -E 's/\)\(/)+(/g' | \
-    bc
+    ../mul_sum_regex.sh
 
 rm ./tmp ./input_shifted_2 ./input_shifted_1 ./input_shifted_0

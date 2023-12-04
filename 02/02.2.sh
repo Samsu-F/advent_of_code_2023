@@ -39,11 +39,11 @@ while grep -Eqs '[0-9]+,[0-9]+' ./tmp; do
     mv ./tmp_new ./tmp
 done
 
-sed -E 's/#N[0-9]+R//g' ./tmp | \
+sed -E 's/#N[0-9]+R/(/g' ./tmp | \
     sed -E 's/,[GB]/\*/g' | \
-    sed -E 's/,$//g' | \
+    sed -E 's/,$/)/g' | \
     paste -sd+ | \
-    bc
+    ../mul_sum_regex.sh
 
 rm ./tmp
 

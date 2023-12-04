@@ -1,7 +1,7 @@
 #!/bin/sh
 # shellcheck disable=SC2002
 
-tmpfile="/tmp/sed_addition_$(date +%s%N)" # reasonable to assume this is a unique filename not used by any other program
+tmpfile="/tmp/sed_sum_$(date +%s%N)" # reasonable to assume this is a unique filename not used by any other program
 
 cat - > "$tmpfile"
 
@@ -33,6 +33,7 @@ while grep -qsE '[0-9F] *\+ *[s0-9]' "$tmpfile"; do
         sed -E 's/9i/i0/g' | \
         sed -E 's/([0-9])@([0-9]*F\+s[0-9]*)0@/@\1\2@0/g' | \
         sed -E 's/f0*(([1-9][0-9]*)?)@([0-9]*)F\+s@0*S/\1\3/g' | \
+        sed -E 's/\(([0-9]+)\)/\1/g' | \
         cat - > "${tmpfile}_new" && mv "${tmpfile}_new" "$tmpfile"
 done
 
