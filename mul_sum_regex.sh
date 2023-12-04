@@ -8,7 +8,7 @@ script_dir_path="$(dirname "$(readlink -f "$0")")"
 
 sed -E 's/\*/x/g' > "$tmpfile" # accept both * and x as multiplication symbol. Use x from now on because it doesn't need to be escaped
 
-while grep -qsE '[0-9F] *x *[s0-9]' "$tmpfile"; do
+while grep -qE '[xX\+]|\([0-9]+\)' "$tmpfile"; do
     while grep -qsE '[0-9F] *x *[s0-9]|z|[0-9]{2}X' "$tmpfile"; do
         cat "$tmpfile" | \
             sed -E 's/([0-9]+) *x *([0-9]+)/\(f\1aFxs\2bS\)/g' | \
@@ -23,6 +23,7 @@ while grep -qsE '[0-9F] *x *[s0-9]' "$tmpfile"; do
     done
 
     cat "$tmpfile" | \
+        sed -E 's/\(([0-9]+)\)/\1/g' | \
         sed -E 's/0X[0-9]*/0/g' | \
         sed -E 's/[0-9]*X0/0/g' | \
         sed -E 's/1X|X1//g' | \
